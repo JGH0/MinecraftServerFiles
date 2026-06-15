@@ -3,9 +3,9 @@ logs/
 crash-reports/
 screenshots/
 
-# Don't commit world data at runtime (only the seed copy in /world)
-# The actual live world is in the named Docker volume
+# Don't commit world session locks (Minecraft creates these at runtime)
 world/*.lock
+world/session.lock
 
 # OS junk
 .DS_Store
