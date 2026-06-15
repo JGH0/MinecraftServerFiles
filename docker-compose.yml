@@ -30,8 +30,9 @@ services:
       MAX_PLAYERS: "10"
       VIEW_DISTANCE: "10"
       SIMULATION_DISTANCE: "8"
-      # Use the test world as the default level
-      LEVEL: "world"
+      # Leave LEVEL unset — the server generates a fresh world on first start
+      # If you want a specific world, set the seed:
+      # SEED: "your_seed_number"
       # Optional: enable RCON for remote admin
       # ENABLE_RCON: "true"
       # RCON_PASSWORD: "changeme"
