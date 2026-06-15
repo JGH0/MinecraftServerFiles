@@ -1,0 +1,30 @@
+#Secure Trade Configuration
+[general]
+	#Time in seconds before a trade request expires
+	# Default: 60
+	# Range: 10 ~ 300
+	requestTimeoutSeconds = 60
+	#Maximum distance in blocks allowed between players to trade (-1 for infinite)
+	# Default: -1.0
+	# Range: -1.0 ~ 10000.0
+	maxTradeDistance = -1.0
+	#Enable detailed transaction logging in logs/securetrade.log
+	enableTradeLogging = true
+	#Seconds to wait before executing the trade after both players are ready
+	# Default: 3
+	# Range: 1 ~ 10
+	countdownSeconds = 3
+	#Cooldown in seconds before a player can send another trade request to the same player
+	# Default: 10
+	# Range: 0 ~ 3600
+	tradeCooldownSeconds = 10
+	#List of item IDs that cannot be traded
+	blacklistedItems = ["minecraft:bedrock"]
+	#List of dimension IDs where trading is allowed (leave empty to allow all)
+	allowedDimensions = []
+	#List of dimension IDs where trading is blocked (leave empty to block none)
+	blockedDimensions = []
+	#Maximum number of trade history entries to keep
+	# Default: 5
+	# Range: 1 ~ 100
+	maxHistoryEntries = 5

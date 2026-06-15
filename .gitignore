@@ -1,0 +1,12 @@
+# Ignore logs, crash reports, client-side stuff that creeps in
+logs/
+crash-reports/
+screenshots/
+
+# Don't commit world data at runtime (only the seed copy in /world)
+# The actual live world is in the named Docker volume
+world/*.lock
+
+# OS junk
+.DS_Store
+Thumbs.db

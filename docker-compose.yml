@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  minecraft:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: modded-mc-server
+    restart: unless-stopped
+
+    # Minecraft server + Simple Voice Chat
+    ports:
+      - "25565:25565/tcp"
+      - "24454:24454/udp"
+
+    volumes:
+      # Persist world data and server state across restarts
+      - mc-data:/data
+
+    environment:
+      EULA: "true"
+      TYPE: "NEOFORGE"
+      VERSION: "1.21.1"
+      # Allocate enough RAM for mods — adjust as needed
+      MEMORY: "6G"
+      MOTD: "A Modded Minecraft Server"
+      DIFFICULTY: "normal"
+      PVP: "false"
+      ALLOW_FLIGHT: "true"
+      MAX_PLAYERS: "10"
+      VIEW_DISTANCE: "10"
+      SIMULATION_DISTANCE: "8"
+      # Use the test world as the default level
+      LEVEL: "world"
+      # Optional: enable RCON for remote admin
+      # ENABLE_RCON: "true"
+      # RCON_PASSWORD: "changeme"
+      # Optional: enable rolling backups
+      # ENABLE_AUTOPAUSE: "false"
+      # OVERRIDE_SERVER_PROPERTIES: "true"
+
+    healthcheck:
+      test: mcstatus localhost:25565 ping || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  mc-data:
