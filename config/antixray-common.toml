@@ -1,0 +1,37 @@
+# AntiXray Configuration
+# A lightweight mod to combat x-rayers
+# https://modrinth.com/mod/anti-xray
+
+[overworld]
+	# Enable anti-xray in the overworld
+	enabled = true
+	# Engine mode: 1=replace hidden with replacement blocks, 2=randomize hidden+replacement, 3=similar to 2 but optimized
+	engineMode = 3
+	# Maximum Y level for block obfuscation (keeps surface builds looking normal)
+	maxBlockHeight = 64
+	# How many blocks around player-placed blocks to reveal
+	updateRadius = 2
+	# Hide blocks adjacent to lava
+	lavaObscures = false
+	# Blocks to hide — using the common ores tag covers all modded ores
+	hiddenBlocks = ["#c:ores", "raw_copper_block", "raw_iron_block", "raw_gold_block"]
+	# Blocks used as fake replacements
+	replacementBlocks = ["#antixray:hidden_only_ores", "stone", "deepslate", "andesite", "calcite", "diorite", "dirt", "granite", "gravel", "sand", "tuff", "mossy_cobblestone", "obsidian", "clay", "infested_stone", "amethyst_block", "budding_amethyst", "chest"]
+
+[the_nether]
+	# Enable anti-xray in the nether
+	enabled = true
+	# Engine mode: 1=replace hidden with replacement blocks
+	engineMode = 1
+	# Maximum Y level for block obfuscation
+	maxBlockHeight = 128
+	# How many blocks around player-placed blocks to reveal
+	updateRadius = 2
+	# Hide blocks adjacent to lava
+	lavaObscures = true
+	# Blocks to hide in the nether
+	hiddenBlocks = ["ancient_debris", "nether_quartz_ore", "nether_gold_ore", "gold_block", "gilded_blackstone"]
+
+[the_end]
+	# Anti-xray disabled in the end — no valuable ores to hide
+	enabled = false
