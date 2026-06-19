@@ -33,9 +33,10 @@ services:
       # Leave LEVEL unset — the server generates a fresh world on first start
       # If you want a specific world, set the seed:
       # SEED: "your_seed_number"
-      # Optional: enable RCON for remote admin
-      # ENABLE_RCON: "true"
-      # RCON_PASSWORD: "changeme"
+      # Enable RCON so the restart-announcer can send warnings + /stop
+      ENABLE_RCON: "true"
+      # Static password is fine — RCON port (25575) is NOT exposed externally
+      RCON_PASSWORD: "__RCON_PASSWORD_FROM_FILE__"
       # Optional: enable rolling backups
       # ENABLE_AUTOPAUSE: "false"
       # OVERRIDE_SERVER_PROPERTIES: "true"
@@ -46,6 +47,22 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s
+
+  # ─── Restart Announcer ──────────────────────────────────────────────────
+  # Sends in-game chat warnings before the daily 2am server restart
+  # (runs cron inside container, triggers at 01:55 each day)
+  restart-announcer:
+    build: ./restart-announcer
+    container_name: mc-restart-announcer
+    restart: unless-stopped
+    depends_on:
+      minecraft:
+        condition: service_healthy
+    environment:
+      RCON_HOST: minecraft
+      RCON_PORT: 25575
+      RCON_PASSWORD: "__RCON_PASSWORD_FROM_FILE__"
+      TZ: Europe/Zurich
 
 volumes:
   mc-data:
