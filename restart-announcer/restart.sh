@@ -1,12 +1,27 @@
 #!/bin/bash
 set -e
 
+# ─── Safety check: only run between 01:00 and 02:30 local time ───────────────
+HOUR=$(date +%-H)
+if [ "$HOUR" -ne 1 ] && [ "$HOUR" -ne 2 ]; then
+    echo "  [restart-announcer] Current hour is $HOUR — not in restart window (01:00–02:30). Exiting."
+    exit 0
+fi
+
+MINUTE=$(date +%-M)
+if [ "$HOUR" -eq 2 ] && [ "$MINUTE" -gt 30 ]; then
+    echo "  [restart-announcer] Past 02:30 — not in restart window. Exiting."
+    exit 0
+fi
+
 # ─── Configuration ───────────────────────────────────────────────────────────
 RCON_HOST="${RCON_HOST:-minecraft}"
 RCON_PORT="${RCON_PORT:-25575}"
 RCON_PASSWORD="${RCON_PASSWORD:-changeme}"
 
 MCRCON="mcrcon -H $RCON_HOST -P $RCON_PORT -p $RCON_PASSWORD"
+
+echo "  [restart-announcer] Time check passed. Starting restart sequence..."
 
 # ─── Warnings before shutdown ────────────────────────────────────────────────
 announce() {
@@ -33,7 +48,5 @@ sleep 10
 $MCRCON stop
 echo "  [restart-announcer] /stop sent. Docker will restart the container automatically."
 
-# Wait for the server container to actually go down so we don't
-# keep running forever if cron fires again
 sleep 60
 echo "  [restart-announcer] Done."
