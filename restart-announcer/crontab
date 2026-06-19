@@ -1,2 +1,0 @@
-# Run the restart sequence every day at 01:55 (5 minutes before 2am)
-55 1 * * * /usr/local/bin/restart-server

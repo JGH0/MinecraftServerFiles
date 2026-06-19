@@ -5,3 +5,7 @@ FROM itzg/minecraft-server:latest
 # World is NOT baked in — the server generates a fresh one and persists it in the volume
 COPY mods/ /mods/
 COPY config/ /config/
+
+# Copy utility scripts (restart announcer, etc.)
+COPY scripts/ /scripts/
+RUN chmod +x /scripts/*.sh
