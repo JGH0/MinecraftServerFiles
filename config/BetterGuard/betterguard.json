@@ -23,7 +23,19 @@
     "jetpack",
     "ironjetpacks",
     "mekanism",
-    "jei"
+    "jei",
+    "xaerominimap",
+    "xaeroworldmap",
+    "fullbrightnesstoggle",
+    "clearwater",
+    "nofog",
+    "distanthorizons",
+    "entityculling",
+    "collective",
+    "kiwi",
+    "resourcefulconfig",
+    "lavaclearview",
+    "brokentoolmod"
   ],
   "blacklistedModIds": [
     "liquidbounce",
@@ -45,7 +57,11 @@
     "freecam",
     "baritone"
   ],
-  "checkOverrides": {},
+  "checkOverrides": {
+    "forbidden_xray_mod": false,
+    "mod_blacklist": false,
+    "channel_blacklist": false
+  },
   "checkThresholds": {
     "phase_max_ticks": 22.0,
     "phase_min_horizontal_speed": 0.12,
