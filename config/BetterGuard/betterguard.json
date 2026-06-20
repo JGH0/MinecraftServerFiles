@@ -60,7 +60,9 @@
   "checkOverrides": {
     "forbidden_xray_mod": false,
     "mod_blacklist": false,
-    "channel_blacklist": false
+    "channel_blacklist": false,
+    "antixray_decoy": false,
+    "antixray_obfuscation": false
   },
   "checkThresholds": {
     "phase_max_ticks": 22.0,
