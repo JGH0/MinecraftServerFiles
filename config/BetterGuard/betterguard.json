@@ -63,7 +63,9 @@
     "channel_blacklist": false,
     "antixray_decoy": false,
     "antixray_obfuscation": false,
-    "scaffold": false
+    "scaffold": false,
+    "nofall": false,
+    "aim_snap": false
   },
   "checkThresholds": {
     "phase_max_ticks": 22.0,
