@@ -70,8 +70,8 @@
   "checkThresholds": {
     "phase_max_ticks": 22.0,
     "phase_min_horizontal_speed": 0.12,
-    "freecam_max_break_distance": 5.0,
-    "freecam_extreme_distance": 5.5,
+    "freecam_max_break_distance": 8.0,
+    "freecam_extreme_distance": 9.0,
     "freecam_still_ticks_min": 60.0,
     "branch_mining_streak": 40.0,
     "branch_mining_min_ores": 6.0,
