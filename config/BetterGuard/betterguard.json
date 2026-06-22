@@ -67,7 +67,10 @@
     "nofall": false,
     "aim_snap": false,
     "jesus": false,
-    "tower": false
+    "tower": false,
+    "phase": false,
+    "highjump": false,
+    "fastbreak": false
   },
   "checkThresholds": {
     "phase_max_ticks": 22.0,
