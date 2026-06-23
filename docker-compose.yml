@@ -24,10 +24,10 @@ services:
       # Allocate enough RAM for mods — adjust as needed
       MEMORY: "6G"
       MOTD: "A Modded Minecraft Server"
-      DIFFICULTY: "normal"
+      DIFFICULTY: "hard"
       PVP: "true"
       ALLOW_FLIGHT: "true"
-      MAX_PLAYERS: "10"
+      MAX_PLAYERS: "100"
       VIEW_DISTANCE: "10"
       SIMULATION_DISTANCE: "8"
       # Leave LEVEL unset — the server generates a fresh world on first start
