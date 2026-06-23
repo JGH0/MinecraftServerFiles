@@ -5,10 +5,12 @@
 __protected = ['r1noa', 'JGH_Play', 'Stebii', 'itzxthunder', 'typixbrandy'];
 
 __on_player_connects(player) -> (
-    name = player ~ 'name';
+    _name = player ~ 'name';
     if (player ~ 'real' == 1, return());
-    if (name in __protected,
-        print(player, format('r ✘ "%s" is a protected name — cannot create fake player', name));
-        exit()
+    for (__protected,
+        if (_ == _name,
+            print(player, format('r ✘ "%s" is a protected name — cannot create fake player', _name));
+            exit()
+        )
     )
 )
