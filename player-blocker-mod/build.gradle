@@ -1,0 +1,38 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.gradle.userdev' version '7.0.171'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+base {
+    archivesName = 'player-blocker'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases'
+    }
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:${neo_version}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// Minimal build - just compile and create mod jar
+jar {
+    manifest {
+        attributes(
+            'Specification-Title': 'Player Blocker',
+            'Specification-Version': '1.2.1',
+            'Implementation-Title': 'Player Blocker',
+            'Implementation-Version': '1.2.1'
+        )
+    }
+}
