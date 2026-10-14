@@ -11,7 +11,7 @@ A NeoForge 1.21.1 modded Minecraft server ready to deploy as a Portainer stack.
 |------|----------|---------|
 | 25565 | TCP | Minecraft server |
 | 24454 | UDP | Simple Voice Chat |
-| 8080  | TCP | Website (`/`) + BlueMap (`/map/`) |
+| 8081  | TCP | Website (`/`) + BlueMap (`/map/`) |
 
 Inside the container, nginx listens on `8080` and reverse-proxies `/map/`
 to BlueMap's integrated webserver on `8100` (never exposed directly).
@@ -57,7 +57,7 @@ So one container serves both the game and the site.
    |---------|---------------|----------|
    | Minecraft | 25565 | TCP |
    | Voice Chat | 24454 | UDP |
-   | Website | 8080 | TCP |
+   | Website | 8081 | TCP |
 
 3. Deploy the stack.
 
@@ -75,6 +75,32 @@ So one container serves both the game and the site.
   ```
   Your world is safe in the `mc-data` volume — removing the *container* does
   not delete the volume.
+- **Port 8081:** the website binds host port `8081` (container `8080`) because
+  `8080` is already used by other services on this host.
+
+### Portainer: `build:` needs a socket environment, not the Agent
+
+Deploying this stack (it has a `build:` section) through a **Portainer Agent
+environment** fails with:
+
+```
+compose build operation failed: listing workers for Build: failed to list workers:
+Unavailable: ... http2: frame too large ... frame header looked like an HTTP/1.1 header
+```
+
+This is a known Portainer bug ([#13255](https://github.com/portainer/portainer/issues/13255)):
+the Agent relays BuildKit's gRPC stream as HTTP/1.1, so the handshake breaks.
+It affects **CE too**, and is only fixed in Portainer 3.0.0.
+
+**Workaround:** deploy the stack to a **Docker socket environment** instead.
+Portainer already has `/var/run/docker.sock` mounted, so:
+
+1. **Environments → Add environment → Docker Standalone**
+2. Choose **"Connect via the Docker socket"** (not the Agent)
+3. Deploy this stack into that environment
+
+Builds work there. You can verify locally with `docker compose build`, which
+uses the same socket path and succeeds.
 
 ## Local Build & Test
 
@@ -84,8 +110,8 @@ docker compose build
 docker compose up -d
 ```
 
-Then open <http://localhost:8080/> for the site and
-<http://localhost:8080/map/> for the BlueMap.
+Then open <http://localhost:8081/> for the site and
+<http://localhost:8081/map/> for the BlueMap.
 
 ## Updating Mods
 
@@ -111,7 +137,7 @@ so it always matches the `mods/` folder that shipped with the running image.
   `maps/world_the_nether.conf`, `maps/world_the_end.conf`).
 - **Rendered data:** `/data/bluemap/web` inside the `mc-data` volume, so the
   render survives restarts.
-- **Viewing:** <http://localhost:8080/map/> via the nginx reverse-proxy.
+- **Viewing:** <http://localhost:8081/map/> via the nginx reverse-proxy.
 
 Useful in-game commands: `/bluemap` (status), `/bluemap reload`,
 `/bluemap render`.

@@ -10,7 +10,7 @@ services:
     ports:
       - "25565:25565/tcp"   # Minecraft
       - "24454:24454/udp"   # Simple Voice Chat
-      - "8080:8080/tcp"     # Website (static site + /map/ BlueMap)
+      - "8081:8080/tcp"     # Website (static site + /map/ BlueMap)
       # Uncomment to publish BlueMap's webserver directly instead of via nginx:
       # - "8100:8100/tcp"
 
@@ -55,7 +55,7 @@ services:
       # --- BlueMap (bundled in mods/) -------------------------------------
       # Config lives in config/bluemap/ and renders world, nether and end.
       # The integrated webserver listens on 8100 *inside* the container and is
-      # reached through nginx at http://<host>:8080/map/ — so 8100 is not
+      # reached through nginx at http://<host>:8081/map/ — so 8100 is not
       # published. Mojang EULA acceptance + all other BlueMap settings live in
       # config/bluemap/core.conf (accept-download is already set to true).
       # BlueMap renders the overworld/nether/end into /data/bluemap/web.

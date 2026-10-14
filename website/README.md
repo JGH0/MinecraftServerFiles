@@ -63,8 +63,8 @@ regenerates `data/backups.json`. `BACKUP_SRC` overrides the source path.
 
 ## Deploying
 
-The image serves the site and the map on port 8080. For a public hostname,
-point an nginx / nginx-proxy-manager proxy host at `<host>:8080`.
+The image serves the site and the map on host port **8081** (container port 8080). For a public hostname,
+point an nginx / nginx-proxy-manager proxy host at `<host>:8081`.
 
 - Dev preview without Docker: `python3 -m http.server 8080` inside this folder.
   BlueMap (`/map/`) only works through the container.
