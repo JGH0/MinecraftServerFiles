@@ -1,8 +1,13 @@
 services:
   minecraft:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # Prebuilt image — no build step. Portainer's Agent environment can't run
+    # compose builds (Portainer bug #13255), so build this on the host first:
+    #     docker compose build
+    # or: docker build -t modded-mc-server:latest .
+    # pull_policy: never tells Compose/Portainer not to try pulling this
+    # local-only image from a registry.
+    image: modded-mc-server:latest
+    pull_policy: never
     container_name: modded-mc-server
     restart: unless-stopped
 

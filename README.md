@@ -78,35 +78,37 @@ So one container serves both the game and the site.
 - **Port 8081:** the website binds host port `8081` (container `8080`) because
   `8080` is already used by other services on this host.
 
-### Portainer: `build:` needs a socket environment, not the Agent
+### Portainer: this stack uses a PREBUILT image (no build)
 
-Deploying this stack (it has a `build:` section) through a **Portainer Agent
-environment** fails with:
+Portainer's **Agent environment** (`bigPc`, port 9001) cannot run compose
+`build:` steps — it fails with:
 
 ```
 compose build operation failed: listing workers for Build: failed to list workers:
 Unavailable: ... http2: frame too large ... frame header looked like an HTTP/1.1 header
 ```
 
-This is a known Portainer bug ([#13255](https://github.com/portainer/portainer/issues/13255)):
-the Agent relays BuildKit's gRPC stream as HTTP/1.1, so the handshake breaks.
-It affects **CE too**, and is only fixed in Portainer 3.0.0.
+This is a known Portainer bug ([#13255](https://github.com/portainer/portainer/issues/13255)),
+unfixed in CE until 3.0.0.
 
-**Workaround:** deploy the stack to a **Docker socket environment** instead.
-Portainer already has `/var/run/docker.sock` mounted, so:
+To avoid it entirely, `docker-compose.yml` now references a **prebuilt image**
+(`image: modded-mc-server:latest`, `pull_policy: never`) instead of building.
+So Portainer just runs the image — the bug can't trigger.
 
-1. **Environments → Add environment → Docker Standalone**
-2. Choose **"Connect via the Docker socket"** (not the Agent)
-3. Deploy this stack into that environment
+**Workflow:**
 
-Builds work there. You can verify locally with `docker compose build`, which
-uses the same socket path and succeeds.
+1. On this host, build the image (after changing mods/config/website/Dockerfile):
+   ```bash
+   ./scripts/build-image.sh
+   ```
+2. In Portainer → **Stacks → your stack → Update the stack**
+   (leave "Re-pull image" **off** — it's a local image).
 
 ## Local Build & Test
 
 ```bash
 cd ~/MinecraftServerFiles
-docker compose build
+./scripts/build-image.sh      # builds modded-mc-server:latest
 docker compose up -d
 ```
 
@@ -120,13 +122,17 @@ so it always matches the `mods/` folder that shipped with the running image.
 
 1. Replace `.jar` files in the `mods/` directory
 2. Update configs in `config/` if needed
-3. Commit and push:
+3. Build the new image on the host:
+   ```bash
+   ./scripts/build-image.sh
+   ```
+4. Commit and push (so the repo matches the image):
    ```bash
    git add mods/ config/
    git commit -m "Update mods: <description>"
    git push
    ```
-4. In Portainer, pull the stack's latest commit and rebuild
+5. In Portainer, update the stack (it runs the freshly built local image)
 
 ## BlueMap (3D map)
 
