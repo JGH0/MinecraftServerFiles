@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mc.hallenbarter.org · Slightly Modded Survival (NeoForge 1.21.1)</title>
+    <meta name="description" content="Community Minecraft server running a slightly modded NeoForge 1.21.1 modpack. Technical-friendly: carpet, duping rules, PvP allowed, no griefing, plus a live 3D BlueMap. Join mc.hallenbarter.org.">
+    <meta property="og:title" content="mc.hallenbarter.org — Slightly Modded Survival">
+    <meta property="og:description" content="NeoForge 1.21.1 · community server · technical-friendly · PvP allowed, griefing not · live 3D map.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="nav-brand" href="index.html"><i class="fas fa-cube"></i> mc.hallenbarter.org <small>· Slightly Modded</small></a>
+            <div class="nav-links">
+                <a class="nav-link" data-page="index.html" href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-link" data-page="mods.html" href="mods.html"><i class="fas fa-cubes"></i> Mods</a>
+                <a class="nav-link" data-page="downloads.html" href="downloads.html"><i class="fas fa-download"></i> Downloads</a>
+                <a class="nav-link" href="map/"><i class="fas fa-map-location-dot"></i> Map</a>
+                <a class="nav-link" href="https://discord.gg/zWFpPjtaxP" target="_blank" rel="noopener"><i class="fab fa-discord"></i> Discord</a>
+                <a class="nav-link" href="https://github.com/JGH0/MinecraftServerFiles" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrap page">
+
+        <!-- HERO -->
+        <header class="hero">
+            <div class="server-icon"><i class="fas fa-cube"></i></div>
+            <h1>mc.hallenbarter.org</h1>
+            <div class="sub"><i class="fas fa-code-branch"></i> NeoForge 1.21.1 · slightly modded · technical-friendly survival</div>
+            <div class="hero-actions">
+                <a href="#join" class="btn primary"><i class="fas fa-rocket"></i> How to join</a>
+                <a href="https://discord.gg/zWFpPjtaxP" target="_blank" rel="noopener" class="btn ghost"><i class="fab fa-discord"></i> Discord</a>
+                <a href="mods.html" class="btn ghost"><i class="fas fa-cubes"></i> Browse the modpack</a>
+                <a href="map/" class="btn ghost"><i class="fas fa-map-location-dot"></i> Live 3D map</a>
+            </div>
+        </header>
+
+        <!-- STATUS -->
+        <div class="status-card">
+            <div class="status-left">
+                <span class="status-dot unknown" id="statusDot"></span>
+                <span>
+                    <span class="status-text" id="statusText">Checking server…</span>
+                    <span class="status-meta" id="statusMeta"></span>
+                </span>
+            </div>
+            <div style="display:flex; gap:0.8rem; align-items:center; flex-wrap:wrap;">
+                <div class="server-ip">
+                    <i class="fas fa-server"></i>
+                    <span id="serverIpDisplay" data-copy-value="mc.hallenbarter.org">mc.hallenbarter.org</span>
+                    <button class="copy-btn" data-copy="#serverIpDisplay" title="Copy IP"><i class="fas fa-copy"></i></button>
+                </div>
+                <button class="icon-btn" id="refreshStatusBtn" title="Check again"><i class="fas fa-sync-alt"></i></button>
+            </div>
+        </div>
+
+        <!-- QUICK FACTS -->
+        <section class="section" id="facts">
+            <h2 class="section-title"><i class="fas fa-circle-info"></i> Quick facts</h2>
+            <div class="chip-grid">
+                <span class="chip"><i class="fas fa-seedling"></i> Seed <b class="mono">-3628575288029383482</b>
+                    <button class="copy-btn" data-copy-value="-3628575288029383482" title="Copy seed"><i class="fas fa-copy"></i></button></span>
+                <span class="chip"><i class="fas fa-skull"></i> Difficulty <b>Hard</b></span>
+                <span class="chip"><i class="fas fa-crosshairs"></i> PvP <b>On</b> <span style="opacity:.75; font-size:.85em">(trapping allowed)</span></span>
+                <span class="chip"><i class="fas fa-feather"></i> Elytra / legit flight <b>Allowed</b> <span style="opacity:.75; font-size:.85em">· fly hacks no</span></span>
+                <span class="chip"><i class="fas fa-border-all"></i> World border <b>Vanilla default</b> <span style="opacity:.75; font-size:.85em">(no custom border)</span></span>
+                <span class="chip"><i class="fas fa-users"></i> Max <b>100</b> players</span>
+                <span class="chip"><i class="fas fa-microphone"></i> Voice chat <b>UDP 24454</b></span>
+                <span class="chip"><i class="fas fa-memory"></i> <b>6 GB</b> RAM</span>
+                <span class="chip"><i class="fas fa-clock"></i> Daily restart <b>01:55</b> (Europe/Zurich)</span>
+                <span class="chip"><i class="fas fa-shield-halved"></i> BetterGuard anticheat + claims</span>
+                <span class="chip"><i class="fas fa-map-location-dot"></i> Live map <b>BlueMap</b> <a href="map/" style="color:#6ac9ff; text-decoration:none;">→</a></span>
+            </div>
+            <p class="lead" style="margin-top:1rem;">A small community survival server with a <strong>technical twist</strong>:
+                Carpet, controlled duping, update suppression — and still chill to play on.
+                The world seed is public, and <em>using</em> the seed / a map for navigation is explicitly allowed.</p>
+        </section>
+
+        <!-- HOW TO JOIN -->
+        <section class="section" id="join">
+            <h2 class="section-title"><i class="fas fa-rocket"></i> How to join</h2>
+            <div class="grid-2">
+                <div class="card neutral">
+                    <h3><i class="fas fa-1" style="color:#f39c12;"></i> Get the game ready</h3>
+                    <ul>
+                        <li><i class="fas fa-arrow-right"></i> Minecraft <b>Java 1.21.1</b></li>
+                        <li><i class="fas fa-arrow-right"></i> Install <b>NeoForge 1.21.1</b> (from <a href="https://neoforged.net" target="_blank" rel="noopener" style="color:#6ac9ff;">neoforged.net</a>)</li>
+                        <li><i class="fas fa-arrow-right"></i> Create a NeoForge profile &amp; launch once</li>
+                    </ul>
+                </div>
+                <div class="card neutral">
+                    <h3><i class="fas fa-2" style="color:#f39c12;"></i> Install the mods</h3>
+                    <ul>
+                        <li><i class="fas fa-arrow-right"></i> Download <b>mods.zip</b> from the <a href="downloads.html" style="color:#6ac9ff;">downloads page</a> — the exact set the server runs</li>
+                        <li><i class="fas fa-arrow-right"></i> Drop the jars into your <code class="inline">mods/</code> folder</li>
+                        <li><i class="fas fa-arrow-right"></i> Optional extras: minimap, fullbright, free cam — allowed!</li>
+                    </ul>
+                </div>
+                <div class="card neutral">
+                    <h3><i class="fas fa-3" style="color:#f39c12;"></i> Connect</h3>
+                    <ul>
+                        <li><i class="fas fa-arrow-right"></i> Multiplayer → Add server</li>
+                        <li><i class="fas fa-arrow-right"></i> Address: <b class="mono" style="color:#b7d9ff;">mc.hallenbarter.org</b>
+                            <button class="copy-btn" data-copy-value="mc.hallenbarter.org" title="Copy IP"><i class="fas fa-copy"></i></button></li>
+                        <li><i class="fas fa-arrow-right"></i> Voice chat: connect on <b>UDP 24454</b> (Simple Voice Chat)</li>
+                        <li><i class="fas fa-arrow-right"></i> That's it — say hi in chat 👋</li>
+                    </ul>
+                </div>
+                <div class="card info">
+                    <h3><i class="fas fa-book-open" style="color:#6ac9ff;"></i> First-time reading</h3>
+                    <ul>
+                        <li><i class="fas fa-arrow-right"></i> Rules TL;DR: no griefing, no hacks — everything else is up for discussion.</li>
+                        <li><i class="fas fa-arrow-right"></i> Claim your builds with <code class="inline">/chunkclaim</code>.</li>
+                        <li><i class="fas fa-arrow-right"></i> Questions? Just ask in chat.</li>
+                        <li><i class="fas fa-arrow-right"></i> Server news &amp; community: join the <a href="https://discord.gg/zWFpPjtaxP" target="_blank" rel="noopener" style="color:#7289da;">Discord</a>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- RULES -->
+        <section class="section" id="rules">
+            <h2 class="section-title"><i class="fas fa-gavel"></i> Server rules &amp; "cheats"</h2>
+            <div class="grid-2">
+
+                <div class="card">
+                    <h3><i class="fas fa-check-circle" style="color:#4caf50;"></i> Allowed</h3>
+                    <ul>
+                        <li><i class="fas fa-arrow-right"></i> Sand / gravity duping</li>
+                        <li><i class="fas fa-arrow-right"></i> TNT duping (for farms)</li>
+                        <li><i class="fas fa-arrow-right"></i> Update suppression &amp; light suppression</li>
+                        <li><i class="fas fa-arrow-right"></i> Client-side QoL mods (minimap, fullbright, free cam)</li>
+                        <li><i class="fas fa-arrow-right"></i> Using the seed / world map for navigation</li>
+                        <li><i class="fas fa-arrow-right"></i> Cave x-ray / free cam (navigation only)</li>
+                        <li><i class="fas fa-arrow-right"></i> Lag machines <b>for technical builds</b> (e.g. update suppressors)</li>
+                    </ul>
+                </div>
+
+                <div class="card bad">
+                    <h3><i class="fas fa-ban" style="color:#e74c3c;"></i> Not allowed</h3>
+                    <ul>
+                        <li><i class="fas fa-times"></i> Griefing / large-scale destruction</li>
+                        <li><i class="fas fa-fire"></i> Lava casting to bypass claim plots — and keep lava casts away from other builds in general (they're ugly and a pain to clean up)</li>
+                        <li><i class="fas fa-lock"></i> Abusing <code class="inline">/claim</code> to trap someone (nobody can mine in a claimed chunk, so don't claim around players to box them in)</li>
+                        <li><i class="fas fa-times"></i> Fly hacks / movement cheats from client mods (elytra &amp; legit flight is fine)</li>
+                        <li><i class="fas fa-times"></i> PvP advantage mods (auto totem, reach, knockback)</li>
+                        <li><i class="fas fa-times"></i> Ore x-ray (cave x-ray / free cam is fine)</li>
+                        <li><i class="fas fa-times"></i> Lag machines built to harm server performance</li>
+                    </ul>
+                    <div class="inline-note">
+                        <i class="fas fa-skull" style="color:#f39c12;"></i> PvP &amp; trapping <strong>are</strong> allowed — no hard feelings afterwards.
+                    </div>
+                </div>
+
+                <div class="card info full">
+                    <h3><i class="fas fa-shield-halved" style="color:#6ac9ff;"></i> How the server stays sane</h3>
+                    <ul>
+                        <li><i class="fas fa-shield-halved"></i> <b>BetterGuard</b> anticheat — normal profile, staff alerts, whitelist for legit client mods (Xaero, JEI, …)</li>
+                        <li><i class="fas fa-user-shield"></i> <b>Player Blocker</b> — protects players (and their pets) from <code class="inline">/player</code>-style interference</li>
+                        <li><i class="fas fa-map-location-dot"></i> <b>Chunk Claim</b> — claim land so your builds survive the night</li>
+                        <li><i class="fas fa-eye-slash"></i> <b>Anti-Xray</b> — ore textures are obfuscated server-side</li>
+                        <li><i class="fas fa-cubes"></i> <b>Carpet (NeoForged)</b> + scarpet scripts for name protection</li>
+                        <li><i class="fas fa-server"></i> Runs in Docker (itzg image) with <b>6 GB</b> RAM, RCON internal only, auto restart <b>01:55</b> with in-game countdown</li>
+                        <li><i class="fas fa-map-location-dot"></i> <b>BlueMap</b> — live 3D map of all three dimensions (<a href="map/" style="color:#6ac9ff;">open it</a>)</li>
+                        <li><i class="fas fa-database"></i> Periodic world snapshots off the live volume — ask an admin if you want a copy</li>
+                    </ul>
+                </div>
+
+                <div class="card full" style="border-left-color:#7289da;">
+                    <h3><i class="fas fa-skull-crossbones" style="color:#7289da;"></i> PvP, loot &amp; content rules</h3>
+                    <ul>
+                        <li><i class="fas fa-crosshairs"></i> <span class="nowrap"><b>PvP needs no consent</b></span> — you may attack other players even if they haven't agreed. It's part of the server; just keep it in-game.</li>
+                        <li><i class="fas fa-house-crack"></i> <span class="nowrap"><b>No raiding</b></span> — killing, trapping &amp; ambushing players is fair game, but breaking into bases and looting chests is <b>not allowed</b>.</li>
+                        <li><i class="fas fa-door-open"></i> <span class="nowrap"><b>Homes aren't safe zones</b></span> — building traps inside bases and attacking players in their own home is allowed too; only taking their stuff isn't.</li>
+                        <li><i class="fas fa-dragon"></i> <span class="nowrap"><b>Loot is yours</b></span> — after a kill you are never obligated to return the victim's dropped items. Giving stuff back is always your own choice, and it's exactly how you build your reputation here.</li>
+                        <li><i class="fas fa-video"></i> <b>Recording &amp; streaming is allowed under all circumstances</b> — no need to ask, no exceptions. Streamers and YouTubers are welcome.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- MODPACK HIGHLIGHTS -->
+        <section class="section" id="mods-preview">
+            <h2 class="section-title"><i class="fas fa-cubes"></i> Modpack highlights</h2>
+            <div class="tag-grid">
+                <span class="tag"><i class="fas fa-cube"></i> Waystones + Teleport Pets</span>
+                <span class="tag"><i class="fas fa-cube"></i> Sophisticated Storage</span>
+                <span class="tag"><i class="fas fa-cube"></i> Storage Network</span>
+                <span class="tag"><i class="fas fa-cube"></i> Farmer's Delight + addons</span>
+                <span class="tag"><i class="fas fa-cube"></i> Simple Voice Chat</span>
+                <span class="tag"><i class="fas fa-cube"></i> Chunk Claim</span>
+                <span class="tag"><i class="fas fa-cube"></i> Spudacious Shops</span>
+                <span class="tag"><i class="fas fa-cube"></i> Secure Trade</span>
+                <span class="tag"><i class="fas fa-cube"></i> Echoes of the End</span>
+                <span class="tag"><i class="fas fa-cube"></i> End Villages + Trader</span>
+                <span class="tag"><i class="fas fa-cube"></i> Carpet (NeoForged)</span>
+                <span class="tag server-only"><i class="fas fa-shield-halved"></i> BetterGuard</span>
+                <span class="tag server-only"><i class="fas fa-shield-halved"></i> Player Blocker</span>
+                <span class="tag server-only"><i class="fas fa-map-location-dot"></i> BlueMap</span>
+                <span class="tag server-only"><i class="fas fa-shield-halved"></i> Anti-Xray</span>
+                <span class="tag"><i class="fas fa-cube"></i> JEI</span>
+                <span class="tag"><i class="fas fa-cube"></i> Polaroid Camera</span>
+                <span class="tag"><i class="fas fa-cube"></i> Mo' Foods</span>
+            </div>
+            <a href="mods.html" class="btn"><i class="fas fa-list-ul"></i> Full mod list (35 jars)</a>
+            <a href="https://github.com/JGH0/MinecraftServerFiles/tree/main/mods" target="_blank" rel="noopener" class="btn ghost"><i class="fab fa-github"></i> mods/ on GitHub</a>
+        </section>
+
+        <!-- 3D MAP -->
+        <section class="section" id="map">
+            <h2 class="section-title"><i class="fas fa-map-location-dot"></i> Live 3D map — BlueMap</h2>
+            <div class="card info">
+                <h3 style="margin-bottom:0.5rem;"><i class="fas fa-earth-europe" style="color:#6ac9ff;"></i> Browse the whole world in your browser</h3>
+                <p style="margin-bottom:0.7rem;">The server runs <strong><a href="https://bluemap.bluecolored.de/" target="_blank" rel="noopener" style="color:#6ac9ff;">BlueMap</a></strong>,
+                    which renders the overworld, nether and end into an interactive 3D map. It updates as the world changes and shows
+                    where players are right now.</p>
+                <ul>
+                    <li><i class="fas fa-eye"></i> No client mod or download needed — just open it</li>
+                    <li><i class="fas fa-location-crosshairs"></i> Live player positions (hidden while spectating)</li>
+                    <li><i class="fas fa-mountain-sun"></i> Full 3D view, plus flat map mode</li>
+                </ul>
+                <a href="map/" class="btn primary sm" style="margin-top:0.9rem;"><i class="fas fa-map-location-dot"></i> Open the map</a>
+            </div>
+        </section>
+
+        <!-- SISTER SERVER -->
+        <section class="section" id="sister">
+            <h2 class="section-title"><i class="fas fa-handshake"></i> Friend server: legit-server.de</h2>
+            <div class="card info">
+                <h3 style="margin-bottom:0.5rem;"><i class="fas fa-leaf" style="color:#4caf50;"></i> Pure vanilla, stricter rules</h3>
+                <p style="margin-bottom:0.7rem;">Our admin's friend runs <strong><a href="https://legit-server.de/" target="_blank" rel="noopener" style="color:#6ac9ff;">legit-server.de</a></strong> —
+                    a completely <b>unmodded</b> server on the <b>newest Minecraft version</b> with stricter rules:</p>
+                <ul>
+                    <li><i class="fas fa-ban"></i> No fullbright or client-side QoL cheats</li>
+                    <li><i class="fas fa-ban"></i> No technical exploits (no duping, no update suppression, no tech mods)</li>
+                    <li><i class="fas fa-ban"></i> Opt-in PvP</li>
+                    <li><i class="fas fa-leaf"></i> Plain survival, always the latest vanilla release</li>
+                </ul>
+                <a href="https://legit-server.de/" target="_blank" rel="noopener" class="btn sm" style="margin-top:0.9rem;"><i class="fas fa-arrow-up-right-from-square"></i> Visit legit-server.de</a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <span><i class="fas fa-crown" style="color:#f0b86e;"></i> mc.hallenbarter.org · community server · <a href="map/">live map</a> · world copies on request via <a href="downloads.html">downloads</a></span>
+            <span>
+                <a href="https://discord.gg/zWFpPjtaxP" target="_blank" rel="noopener"><i class="fab fa-discord"></i> Discord</a> ·
+                <a href="https://github.com/JGH0/MinecraftServerFiles" target="_blank" rel="noopener"><i class="fab fa-github"></i> Server files on GitHub</a>
+            </span>
+            <span><i class="fas fa-leaf" style="color:#6ac9ff;"></i> Friend server: <a href="https://legit-server.de/" target="_blank" rel="noopener">legit-server.de</a> — unmodded, stricter rules</span>
+            <span class="legal">Not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Mojang AB. Server software: NeoForge 1.21.1, deployed via Docker.</span>
+        </footer>
+
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

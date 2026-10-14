@@ -8,14 +8,20 @@ services:
     container_name: modded-mc-server
     restart: unless-stopped
 
-    # Minecraft server + Simple Voice Chat
+    # Minecraft server + Simple Voice Chat + website/BlueMap
     ports:
-      - "25565:25565/tcp"
-      - "24454:24454/udp"
+      - "25565:25565/tcp"   # Minecraft
+      - "24454:24454/udp"   # Simple Voice Chat
+      - "8080:8080/tcp"     # Website (static site + /map/ BlueMap)
+      # Uncomment to publish BlueMap's webserver directly instead of via nginx:
+      # - "8100:8100/tcp"
 
     volumes:
       # Persist world data and server state across restarts
       - mc-data:/data
+      # Generated world-backup zips + mods.zip, served by the site.
+      # Read-only: the host/scripts/refresh-downloads.sh writes these.
+      - ./website/downloads:/usr/share/nginx/downloads:ro
 
     environment:
       EULA: "true"
@@ -35,7 +41,7 @@ services:
       # SEED: "your_seed_number"
       # Enable RCON so in-container scripts can send commands
       ENABLE_RCON: "true"
-      # Static password is fine — RCON port (25575) is NOT exposed externally
+      # RCON port (25575) is NOT exposed externally
       RCON_PASSWORD: "__RCON_PASSWORD_FROM_FILE__"
       TZ: Europe/Zurich
       # Schedule daily restart at 01:55 (5 min before 2am)
@@ -45,6 +51,13 @@ services:
       # Optional: enable rolling backups
       # ENABLE_AUTOPAUSE: "false"
       # OVERRIDE_SERVER_PROPERTIES: "true"
+      # --- BlueMap (bundled in mods/) -------------------------------------
+      # Config lives in config/bluemap/ and renders world, nether and end.
+      # The integrated webserver listens on 8100 *inside* the container and is
+      # reached through nginx at http://<host>:8080/map/ — so 8100 is not
+      # published. Mojang EULA acceptance + all other BlueMap settings live in
+      # config/bluemap/core.conf (accept-download is already set to true).
+      # BlueMap renders the overworld/nether/end into /data/bluemap/web.
 
     healthcheck:
       test: mcstatus localhost:25565 ping || exit 1

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modpack · mc.hallenbarter.org</title>
+    <meta name="description" content="The full mod list of the mc.hallenbarter.org NeoForge 1.21.1 modpack: 35 jars — storage, tech, farming, trading, voice chat, protection, a live 3D map and more.">
+    <meta property="og:title" content="Modpack · mc.hallenbarter.org">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="nav-brand" href="index.html"><i class="fas fa-cube"></i> mc.hallenbarter.org <small>· Slightly Modded</small></a>
+            <div class="nav-links">
+                <a class="nav-link" data-page="index.html" href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-link" data-page="mods.html" href="mods.html"><i class="fas fa-cubes"></i> Mods</a>
+                <a class="nav-link" data-page="downloads.html" href="downloads.html"><i class="fas fa-download"></i> Downloads</a>
+                <a class="nav-link" href="map/"><i class="fas fa-map-location-dot"></i> Map</a>
+                <a class="nav-link" href="https://discord.gg/zWFpPjtaxP" target="_blank" rel="noopener"><i class="fab fa-discord"></i> Discord</a>
+                <a class="nav-link" href="https://github.com/JGH0/MinecraftServerFiles" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrap page">
+
+        <header class="hero" style="padding-top:1.6rem;">
+            <div class="server-icon"><i class="fas fa-cubes"></i></div>
+            <h1>The modpack</h1>
+            <div class="sub"><i class="fas fa-code-branch"></i> NeoForge 1.21.1 · maintained in the GitHub repo · same set on server &amp; client</div>
+        </header>
+
+        <section class="section">
+            <p class="lead">The server runs <strong>35 jar files (34 unique mods)</strong> on NeoForge 1.21.1.
+                Some are server-side protection/tech (marked <span class="cat-pill" style="background:#251f31;color:#cbbadf;border-color:#4a3f56;">Server</span>),
+                the rest are regular gameplay mods you should have on the client too —
+                grab <a href="downloads.html" style="color:#6ac9ff;">mods.zip</a> and drop it into your NeoForge <code class="inline">mods/</code> folder.
+                Type to filter the list:</p>
+
+            <div class="count-pill"><i class="fas fa-cubes"></i> 35 jars · 34 unique mods · updated October 2026</div>
+
+            <div class="search-wrap">
+                <i class="fas fa-magnifying-glass"></i>
+                <input type="search" class="mod-search" id="modSearch" placeholder="Filter mods… (e.g. storage, voice, xray)">
+            </div>
+
+            <div class="table-wrap">
+                <table class="mod-table" id="modTable">
+                    <thead>
+                        <tr>
+                            <th>Mod</th>
+                            <th>Category</th>
+                            <th>What it does on this server</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="mod-name">Waystones</span><span class="mod-file">waystones-neoforge-1.21.1-21.1.34.jar</span></td>
+                            <td><span class="cat-pill">QoL</span></td>
+                            <td class="mod-desc">Fast travel between discovered waystones — great for a big survival map.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Teleport Pets</span><span class="mod-file">WaystonesTeleportPets-1.2-neoforge-1.21.1.jar</span></td>
+                            <td><span class="cat-pill">QoL</span></td>
+                            <td class="mod-desc">Waystones addon: teleport your pets along with you.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Sophisticated Storage</span><span class="mod-file">sophisticatedstorage-1.21.1-1.5.59.1843.jar</span></td>
+                            <td><span class="cat-pill">Storage</span></td>
+                            <td class="mod-desc">Upgradable barrels, chests, shulker boxes and backpacks with filters &amp; upgrades.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Sophisticated Core</span><span class="mod-file">sophisticatedcore-1.21.1-1.4.56.2019.jar</span></td>
+                            <td><span class="cat-pill">Library</span></td>
+                            <td class="mod-desc">Library required by Sophisticated Storage.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Storage Network</span><span class="mod-file">storagenetwork-1.21.1-1.13.0.jar</span></td>
+                            <td><span class="cat-pill">Storage</span></td>
+                            <td class="mod-desc">Remote-access your storage from a single master block — no more running home for that one item.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Real Filing Reborn</span><span class="mod-file">realfilingreborn-1.2.6+mc-1.21.1.jar</span></td>
+                            <td><span class="cat-pill">Storage</span></td>
+                            <td class="mod-desc">Functional file cabinets for item hoarding.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Farmer's Delight</span><span class="mod-file">FarmersDelight-1.21.1-1.3.2.jar</span></td>
+                            <td><span class="cat-pill">Food</span></td>
+                            <td class="mod-desc">Cooking, cutting boards, knives and a whole kitchen of new recipes.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Egg Delight</span><span class="mod-file">EggDelight-v1.2-1.21.1.jar</span></td>
+                            <td><span class="cat-pill">Food</span></td>
+                            <td class="mod-desc">Farmer's Delight addon: proper egg dishes.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Mo' Foods</span><span class="mod-file">mo-foods-1.4.jar</span></td>
+                            <td><span class="cat-pill">Food</span></td>
+                            <td class="mod-desc">More food variety to keep your hunger bar interesting.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Echo Chest</span><span class="mod-file">EchoChest-v21.1.1-1.21.1-NeoForge.jar</span></td>
+                            <td><span class="cat-pill">Content</span></td>
+                            <td class="mod-desc">End-game loot chests — the reward loop that pairs with Echoes of the End.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Echoes of the End</span><span class="mod-file">echoes_of_the_end__structures NeoForge Fabric 1.21.1 -12.00.13.jar</span></td>
+                            <td><span class="cat-pill">Content</span></td>
+                            <td class="mod-desc">New structures in the End, so the outer islands are worth exploring again.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">End Villages</span><span class="mod-file">endervillages-2.0-1.21.1.jar</span></td>
+                            <td><span class="cat-pill">Content</span></td>
+                            <td class="mod-desc">Villages in the End dimension.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">End Villager Trader</span><span class="mod-file">end_villager_trader-1.0.1-neoforge-1.21.1.jar</span></td>
+                            <td><span class="cat-pill">Trading</span></td>
+                            <td class="mod-desc">Traders in End villages with end-game goods.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Lush Cave Trader</span><span class="mod-file">lushcavetrader-2.0.0-neoforge-1.21.1.jar</span></td>
+                            <td><span class="cat-pill">Trading</span></td>
+                            <td class="mod-desc">A trader that spawns in lush caves with unique stock.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Secure Trade</span><span class="mod-file">securetrade-neoforge-1.2.0.jar</span></td>
+                            <td><span class="cat-pill">Trading</span></td>
+                            <td class="mod-desc">Makes villager trading safer/fairer (no more trade-scam losses).</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Trade Refresh</span><span class="mod-file">traderefresh-3.0.4.jar</span></td>
+                            <td><span class="cat-pill">Trading</span></td>
+                            <td class="mod-desc">Refresh villager trades on demand.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Spudacious Shops</span><span class="mod-file">spudaciousshops-1.9.9.jar</span></td>
+                            <td><span class="cat-pill">Trading</span></td>
+                            <td class="mod-desc">Player-run shops for a light server economy.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Simple Voice Chat</span><span class="mod-file">voicechat-neoforge-1.21.1-2.6.18.jar</span></td>
+                            <td><span class="cat-pill">Social</span></td>
+                            <td class="mod-desc">Proximity voice chat — connect on UDP port 24454.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Carpet (NeoForged)</span><span class="mod-file">neoforge-carpet-1.21.1-1.0.8+v251027.jar</span></td>
+                            <td><span class="cat-pill">Technical</span></td>
+                            <td class="mod-desc">The technical player's toolbox: rules, scarpet scripts, TPS tools. Native NeoForge port.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Anti-Xray</span><span class="mod-file">antixray-neoforge-1.4.8+1.21.1.jar</span></td>
+                            <td><span class="cat-pill" style="background:#251f31;color:#cbbadf;border-color:#4a3f56;">Server</span></td>
+                            <td class="mod-desc">Server-side ore obfuscation — ores are hidden until you actually mine them. Kills ore x-ray.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">BlueMap</span><span class="mod-file">bluemap-5.7-neoforge.jar</span></td>
+                            <td><span class="cat-pill" style="background:#251f31;color:#cbbadf;border-color:#4a3f56;">Server</span></td>
+                            <td class="mod-desc">Live 3D web map of the overworld, nether and end — rendered straight from the world files and viewable in your browser at <a href="map/" style="color:#6ac9ff;">/map/</a>. Not needed on the client.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">BetterGuard (BGuard)</span><span class="mod-file">BGuard-0.5-1.21.1-NeoForge.jar</span></td>
+                            <td><span class="cat-pill" style="background:#251f31;color:#cbbadf;border-color:#4a3f56;">Server</span></td>
+                            <td class="mod-desc">Anticheat on a normal profile: movement checks, forbidden-mod blacklist, whitelist for legit client mods, staff alerts.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Player Blocker</span><span class="mod-file">player-blocker-1.2.1.jar</span></td>
+                            <td><span class="cat-pill" style="background:#251f31;color:#cbbadf;border-color:#4a3f56;">Server</span></td>
+                            <td class="mod-desc">Blocks <code class="inline">/player</code>-style interference with protected players (self-protect, admins bypass). The server's own mod — <a href="https://github.com/JGH0/MinecraftServerFiles/tree/main/player-blocker-mod" target="_blank" rel="noopener" style="color:#6ac9ff;">source in the repo</a>.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Chunk Claim</span><span class="mod-file">chunkclaim-1.1.2.jar</span></td>
+                            <td><span class="cat-pill" style="background:#251f31;color:#cbbadf;border-color:#4a3f56;">Server</span></td>
+                            <td class="mod-desc">Claim chunks so other players can't build or break in your area.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Connector (Sinytra)</span><span class="mod-file">connector-2.0.0-beta.14+1.21.1-full.jar</span></td>
+                            <td><span class="cat-pill">Library</span></td>
+                            <td class="mod-desc">Runs Fabric mods on NeoForge — the reason the modpack can mix both ecosystems.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Forgified Fabric API</span><span class="mod-file">forgified-fabric-api-0.116.7+2.2.4+1.21.1.jar</span></td>
+                            <td><span class="cat-pill">Library</span></td>
+                            <td class="mod-desc">Fabric API ported to NeoForge, needed by Connector-based mods.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">JEI</span><span class="mod-file">jei-1.21.1-neoforge-19.27.0.340.jar</span></td>
+                            <td><span class="cat-pill">QoL</span></td>
+                            <td class="mod-desc">Recipe viewer — essential with 34 mods' worth of recipes.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Polaroid Camera</span><span class="mod-file">polaroidcamera-1.8.5.jar</span></td>
+                            <td><span class="cat-pill">QoL</span></td>
+                            <td class="mod-desc">Take instant in-game photos of your builds.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">TPA Teleport</span><span class="mod-file">tpateleport-1.0.0.jar</span></td>
+                            <td><span class="cat-pill">QoL</span></td>
+                            <td class="mod-desc">Simple /tpa request teleports between players.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Spooky Music</span><span class="mod-file">ls_spooky_music-1.0.1-neoforge-1.21.1.jar</span></td>
+                            <td><span class="cat-pill">Ambience</span></td>
+                            <td class="mod-desc">Atmospheric music discs to set the mood.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">FerriteCore</span><span class="mod-file">ferritecore-7.0.3-neoforge.jar</span></td>
+                            <td><span class="cat-pill">Performance</span></td>
+                            <td class="mod-desc">Reduces memory usage — worth it with 6 GB and a big world.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Balm</span><span class="mod-file">balm-neoforge-1.21.1-21.0.58.jar</span></td>
+                            <td><span class="cat-pill">Library</span></td>
+                            <td class="mod-desc">Cross-loader library used by several mods above.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Puzzles Lib</span><span class="mod-file">PuzzlesLib-v21.1.51-1.21.1-NeoForge.jar</span></td>
+                            <td><span class="cat-pill">Library</span></td>
+                            <td class="mod-desc">Library mod (Polaroid Camera, Spooky Music &amp; co.).</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mod-name">Flib</span><span class="mod-file">flib-1.21.1-0.2.4.jar</span></td>
+                            <td><span class="cat-pill">Library</span></td>
+                            <td class="mod-desc">Small cross-platform library (used by Mo' Foods).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="font-size:0.85rem; color:var(--muted); margin-top:0.8rem;">
+                <i class="fas fa-info-circle"></i> Note: the repo's <code class="inline">mods/</code> folder also still contains an older
+                <code class="inline">player-blocker-1.2.0.jar</code> — the active build is <code class="inline">1.2.1</code>. Jars are version-pinned, so updates are deliberate, not accidental.
+                <code class="inline">mods.zip</code> on the <a href="downloads.html" style="color:#6ac9ff;">downloads page</a> is rebuilt on every image build and matches this list.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-route"></i> Roadmap / maybe-later mods</h2>
+            <p class="lead">Ideas being kicked around by the admin — no promises, no ETA. Want to vote for one? Ask in-game.</p>
+            <div class="tag-grid">
+                <span class="tag"><i class="fas fa-cube"></i> Biomes O' Plenty</span>
+                <span class="tag"><i class="fas fa-cube"></i> Carry On</span>
+                <span class="tag"><i class="fas fa-cube"></i> Projectile Deflection (datapack)</span>
+                <span class="tag"><i class="fas fa-cube"></i> More Farmer's Delight addons</span>
+                <span class="tag"><i class="fas fa-cube"></i> Better TPA (tab-complete + cross-dimension)</span>
+                <span class="tag"><i class="fas fa-cube"></i> Mini-HUD server-side (structures, bee hives, villagers)</span>
+                <span class="tag"><i class="fas fa-cube"></i> MAVM + MAVAPI (armor variants)</span>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <span><i class="fas fa-crown" style="color:#f0b86e;"></i> mc.hallenbarter.org · <a href="index.html">home</a> · <a href="downloads.html">downloads</a></span>
+            <span>
+                <a href="https://discord.gg/zWFpPjtaxP" target="_blank" rel="noopener"><i class="fab fa-discord"></i> Discord</a> ·
+                <a href="https://github.com/JGH0/MinecraftServerFiles/tree/main/mods" target="_blank" rel="noopener"><i class="fab fa-github"></i> mods/ on GitHub</a>
+            </span>
+            <span><i class="fas fa-leaf" style="color:#6ac9ff;"></i> Friend server: <a href="https://legit-server.de/" target="_blank" rel="noopener">legit-server.de</a> — unmodded, stricter rules</span>
+            <span class="legal">Not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Mojang AB.</span>
+        </footer>
+
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

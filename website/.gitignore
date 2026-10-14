@@ -1,0 +1,7 @@
+# Generated / heavy — never version these
+downloads/
+data/backups.json
+
+# OS junk
+.DS_Store
+Thumbs.db

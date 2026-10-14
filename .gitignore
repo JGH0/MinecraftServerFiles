@@ -7,6 +7,9 @@ screenshots/
 world/*.lock
 world/session.lock
 
+# mods.zip is generated at docker build time from mods/ — never version it
+mods.zip
+
 # OS junk
 .DS_Store
 Thumbs.db

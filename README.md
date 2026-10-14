@@ -2,6 +2,24 @@
 
 A NeoForge 1.21.1 modded Minecraft server ready to deploy as a Portainer stack.
 
+**One image runs everything:** the Minecraft server *and* the website
+(static site + BlueMap 3D map), served by nginx.
+
+## What runs where
+
+| Port | Protocol | Service |
+|------|----------|---------|
+| 25565 | TCP | Minecraft server |
+| 24454 | UDP | Simple Voice Chat |
+| 8080  | TCP | Website (`/`) + BlueMap (`/map/`) |
+
+Inside the container, nginx listens on `8080` and reverse-proxies `/map/`
+to BlueMap's integrated webserver on `8100` (never exposed directly).
+
+The image uses a thin custom entrypoint (`scripts/entrypoint.sh`) that
+prepares the webroot, starts nginx, and then execs the stock itzg `/start`.
+So one container serves both the game and the site.
+
 ## Mods Included
 
 | Mod | Description |
@@ -25,6 +43,7 @@ A NeoForge 1.21.1 modded Minecraft server ready to deploy as a Portainer stack.
 | Real Filing Reborn | Better file cabinets |
 | TPA Teleport | Teleport commands |
 | Spooky Music | Atmospheric music |
+| **BlueMap** | Live 3D web map (overworld, nether, end) |
 
 ## Deployment (Portainer)
 
@@ -38,6 +57,7 @@ A NeoForge 1.21.1 modded Minecraft server ready to deploy as a Portainer stack.
    |---------|---------------|----------|
    | Minecraft | 25565 | TCP |
    | Voice Chat | 24454 | UDP |
+   | Website | 8080 | TCP |
 
 3. Deploy the stack.
 
@@ -49,7 +69,13 @@ docker compose build
 docker compose up -d
 ```
 
+Then open <http://localhost:8080/> for the site and
+<http://localhost:8080/map/> for the BlueMap.
+
 ## Updating Mods
+
+`mods.zip` on the website is **rebuilt automatically on every image build**,
+so it always matches the `mods/` folder that shipped with the running image.
 
 1. Replace `.jar` files in the `mods/` directory
 2. Update configs in `config/` if needed
@@ -61,9 +87,33 @@ docker compose up -d
    ```
 4. In Portainer, pull the stack's latest commit and rebuild
 
-## World Data
+## BlueMap (3D map)
 
-The initial world (`world/` directory) is a copy of the test save. Live world data persists in the Docker named volume `mc-data`.
+- **Mod:** `mods/bluemap-5.7-neoforge.jar` — the newest BlueMap NeoForge build
+  that supports Minecraft **1.21.1** (later releases target NeoForge 26.x /
+  Java 25).
+- **Config:** `config/bluemap/` — one map per dimension (`maps/world.conf`,
+  `maps/world_the_nether.conf`, `maps/world_the_end.conf`).
+- **Rendered data:** `/data/bluemap/web` inside the `mc-data` volume, so the
+  render survives restarts.
+- **Viewing:** <http://localhost:8080/map/> via the nginx reverse-proxy.
+
+Useful in-game commands: `/bluemap` (status), `/bluemap reload`,
+`/bluemap render`.
+
+> **First boot:** BlueMap downloads the Minecraft client jar (~26 MB) and
+> renders the *entire* existing world once. That first render is CPU-heavy and
+> can take hours on a big world; afterwards it only re-renders chunks that
+> change. Check progress with `/bluemap` in-game or in the container logs.
+
+## World copies
+
+World snapshots are made on the host with `scripts/mc-backup.sh`
+(copies the Docker `mc-data` volume to `~/Documents/McBackup/<timestamp>/`).
+
+They are **not offered as public downloads** — the website tells visitors to
+request a copy on Discord or in-game. See `website/README.md` for how
+snapshots are published if you ever want to open them up again.
 
 ## Notes
 
