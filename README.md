@@ -61,6 +61,21 @@ So one container serves both the game and the site.
 
 3. Deploy the stack.
 
+### Important: your world volume & container name
+
+- **Volume:** the stack declares `mc-data` as an **external** volume, so Compose
+  attaches to your existing world instead of creating a fresh
+  `minecraftserverfiles_mc-data`. If that volume is ever missing:
+  `docker volume create mc-data`.
+- **Container name:** the service uses `container_name: modded-mc-server`.
+  If a container with that name already exists (e.g. your current one), remove
+  it first or the deploy fails with a name conflict:
+  ```bash
+  docker rm -f modded-mc-server
+  ```
+  Your world is safe in the `mc-data` volume — removing the *container* does
+  not delete the volume.
+
 ## Local Build & Test
 
 ```bash

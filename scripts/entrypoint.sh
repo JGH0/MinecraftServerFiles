@@ -27,17 +27,11 @@ prepare_webroot() {
         cp -a "$SRC_ROOT/." "$WEB_ROOT/" 2>/dev/null || true
     fi
 
-    # Downloads: world backups are bind-mounted read-only by docker-compose
-    # at /usr/share/nginx/downloads. Create it so nginx is happy when the
-    # mount is absent (stand-alone `docker run`).
-    mkdir -p /usr/share/nginx/downloads
-
-    # The image bakes a mods.zip built from /mods at build time. Seed it in
-    # when there isn't one yet, so mods.zip is always downloadable even on a
-    # bare `docker run` or a fresh checkout where website/downloads/ is empty.
-    if [ -f /ui/downloads/mods.zip ] && [ ! -f /usr/share/nginx/downloads/mods.zip ]; then
-        cp /ui/downloads/mods.zip /usr/share/nginx/downloads/mods.zip 2>/dev/null || true
-    fi
+    # Downloads: world copies may be mounted read-only from the host at
+    # /usr/share/nginx/backups/downloads. That folder is optional — it may not
+    # exist on a fresh checkout, and Docker creates it empty. nginx falls back
+    # to the image-baked /ui/downloads for anything missing (i.e. mods.zip).
+    mkdir -p /usr/share/nginx/backups/downloads
 
     # NOTE: do not pre-create /data/bluemap here. This function runs as root,
     # but BlueMap runs as the "minecraft" user — creating it as root would

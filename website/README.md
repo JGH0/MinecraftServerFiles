@@ -51,7 +51,8 @@ World snapshots are made on the host with the repo's
 
 They are **not published as public downloads** — the downloads page tells
 visitors to ask on Discord or in-game. If you ever want to open them up
-again, drop the zips into `downloads/` and run:
+again, drop the zips into this folder (`website/downloads/`, mounted into the
+container at `/usr/share/nginx/backups`) and run:
 
 ```bash
 ./scripts/refresh-downloads.sh

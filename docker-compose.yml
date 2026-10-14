@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   minecraft:
     build:
@@ -17,11 +15,14 @@ services:
       # - "8100:8100/tcp"
 
     volumes:
-      # Persist world data and server state across restarts
+      # Persist world data and server state across restarts.
+      # This reuses the EXISTING "mc-data" volume (declared external below),
+      # so the world you already have is kept — not a fresh one.
       - mc-data:/data
-      # Generated world-backup zips + mods.zip, served by the site.
-      # Read-only: the host/scripts/refresh-downloads.sh writes these.
-      - ./website/downloads:/usr/share/nginx/downloads:ro
+      # Optional: world-copy zips to serve on the downloads page. This folder
+      # does not need to exist on the host — Docker creates it, and mods.zip
+      # is served from the image if there are no backups here.
+      - ./website/downloads:/usr/share/nginx/backups/downloads:ro
 
     environment:
       EULA: "true"
@@ -67,4 +68,8 @@ services:
       start_period: 120s
 
 volumes:
+  # Your existing world lives in this volume. It is marked external so Compose
+  # attaches to it instead of creating a new "minecraftserverfiles_mc-data".
+  # If it ever gets deleted: docker volume create mc-data
   mc-data:
+    external: true
