@@ -182,3 +182,14 @@ the image reads the same file, so no other change is needed.
 
 - The server starts with **6 GB RAM** allocated — adjust `MEMORY` in `docker-compose.yml` if needed
 - You can set server.properties values via environment variables in the stack
+
+## License
+
+This project (the server setup, scripts, configs, website and the Player
+Blocker mod) is released under the **MIT License** — see [`LICENSE`](LICENSE).
+
+The mods in `mods/` are **third-party works** and are *not* covered by that
+license. Many are All Rights Reserved or under other terms. See
+[`NOTICE`](NOTICE.md) for the per-mod attribution and licenses before
+redistributing anything from `mods/`.
+
