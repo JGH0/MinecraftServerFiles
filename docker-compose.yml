@@ -28,6 +28,9 @@ services:
       # does not need to exist on the host — Docker creates it, and mods.zip
       # is served from the image if there are no backups here.
       - ./website/downloads:/usr/share/nginx/backups/downloads:ro
+      # RCON password, generated on the host and kept out of git.
+      # secrets/ is listed in .gitignore. Read-only so the server can't alter it.
+      - ./secrets/rcon_password:/run/secrets/rcon_password:ro
 
     environment:
       EULA: "true"
@@ -47,8 +50,11 @@ services:
       # SEED: "your_seed_number"
       # Enable RCON so in-container scripts can send commands
       ENABLE_RCON: "true"
-      # RCON port (25575) is NOT exposed externally
-      RCON_PASSWORD: "__RCON_PASSWORD_FROM_FILE__"
+      # RCON port (25575) is NOT exposed externally.
+      # The password is read from a file on the host (gitignored, never
+      # committed). Create it once with:  ./scripts/gen-rcon-secret.sh
+      # The file must exist or the container exits — see that script.
+      RCON_PASSWORD_FILE: "/run/secrets/rcon_password"
       TZ: Europe/Zurich
       # Schedule daily restart at 01:55 (5 min before 2am)
       EXTRA_CRON: "55 1 * * * /scripts/restart.sh >> /data/restart-cron.log 2>&1"

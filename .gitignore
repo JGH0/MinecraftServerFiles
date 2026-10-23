@@ -6,9 +6,24 @@ screenshots/
 # Don't commit world session locks (Minecraft creates these at runtime)
 world/*.lock
 world/session.lock
+# The world itself is not shipped in the repo (it lives in the mc-data volume)
+world/
+
+# Gradle / mod build output — never version these. They are hundreds of MB of
+# cached Minecraft jars and decompiled sources, and break clone times.
+.gradle/
+build/
+bin/
+runs/
+*.class
 
 # mods.zip is generated at docker build time from mods/ — never version it
 mods.zip
+
+# Secrets (RCON password etc). Generated on the host by
+# scripts/gen-rcon-secret.sh — must never be committed.
+secrets/
+.env
 
 # OS junk
 .DS_Store

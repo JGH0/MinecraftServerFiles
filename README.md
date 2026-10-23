@@ -162,6 +162,22 @@ They are **not offered as public downloads** — the website tells visitors to
 request a copy on Discord or in-game. See `website/README.md` for how
 snapshots are published if you ever want to open them up again.
 
+## RCON password
+
+The RCON password is **not** stored in this repo. `docker-compose.yml` sets
+`RCON_PASSWORD_FILE`, and mounts `./secrets/rcon_password` into the container
+read-only. Create it once on the host:
+
+```bash
+./scripts/gen-rcon-secret.sh          # create if missing
+./scripts/gen-rcon-secret.sh --force  # rotate
+```
+
+`secrets/` is gitignored. The container **exits with an error** if the file is
+missing, so run the script before deploying. Port 25575 is never published, so
+only in-container tools (`rcon-cli`, used by `scripts/restart.sh`) reach it —
+the image reads the same file, so no other change is needed.
+
 ## Notes
 
 - The server starts with **6 GB RAM** allocated — adjust `MEMORY` in `docker-compose.yml` if needed
